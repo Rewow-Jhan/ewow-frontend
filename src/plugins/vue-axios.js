@@ -1,11 +1,5 @@
 import axios from 'axios'
 
-const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-})
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
-export default {
-    install: (app, options) => {
-        app.config.globalProperties.$axios={ ...axiosInstance }
-    }
-}
+export default axios
