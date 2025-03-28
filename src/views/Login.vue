@@ -22,7 +22,7 @@
             </svg>
           </div>
         </button>
-        <button class="btn btn-xl btn-primary w-full google-btn relative">
+        <button class="btn btn-xl btn-primary w-full google-btn relative" @click="handleGoogleLogin()">
           Google
           <div class="login-btn-icon absolute">
             <svg fill="#ffffff" height="24px" width="24px" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,24 @@
   </div>
 </template>
 
-<script setup>
+<script>
+export default {
+  name: 'Login',
+
+  methods: {
+    handleGoogleLogin() {
+      window.location.href = import.meta.env.VITE_API_URL + '/users/google-login';
+    }
+  },
+
+  async created() {
+    if (this.$route.name == 'LoginSuccess' && this.$route.query?.token){
+      const token = this.$route.query.token;
+      localStorage.setItem('token', token);
+      this.$router.push('/home');
+    }
+  },
+};
 </script>
 
 <style>
